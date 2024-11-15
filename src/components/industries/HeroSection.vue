@@ -42,16 +42,13 @@
     </div>
     <h1
       ref="header"
-      class="mt-16 text-center text-6xl font-bold uppercase tracking-tight transition-transform ease-linear md:text-9xl 2xl:text-[13rem] 2xl:leading-[14rem]"
+      class="mt-16 text-center text-6xl font-bold uppercase tracking-tight md:text-9xl 2xl:text-[13rem] 2xl:leading-[14rem]"
     >
       DEVA SMT
       <br />
       ASSEMBLY
     </h1>
-    <div
-      ref="image"
-      class="flex w-[200vw] justify-center transition-transform ease-linear"
-    >
+    <div ref="image" class="flex w-[200vw] justify-center">
       <img
         class="pointer-events-none z-10 object-cover"
         :src="market.image"
