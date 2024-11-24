@@ -1,5 +1,5 @@
 <template>
-  <section class="flex flex-col justify-between md:col-span-2">
+  <section class="z-30 flex flex-col justify-between gap-12 md:col-span-2">
     <img
       src="../../assets/Logo-Deva.png"
       alt="Deva Logo"
@@ -11,7 +11,7 @@
       certified
     </p>
     <h2
-      class="text-center font-serif text-4xl font-semibold md:text-left md:text-5xl 2xl:text-6xl"
+      class="text-center font-serif text-4xl font-semibold md:text-left md:text-6xl"
     >
       <span class="underline underline-offset-8">Frontman</span>
       in

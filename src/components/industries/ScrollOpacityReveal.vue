@@ -1,67 +1,81 @@
 <template>
-  <p ref="paragraphRef" :class="className">
+  <p ref="paragraphRef" class="relative">
     <span
-      v-for="(word, index) in words"
+      v-for="(char, index) in characters"
       :key="index"
-      class="inline"
+      class="inline transition-opacity duration-500 ease-in-out"
       :style="{
-        opacity: wordOpacities[index],
-        transition: 'opacity 0.5s ease',
+        opacity: characterOpacities[index],
       }"
     >
-      {{ word }}&nbsp;
+      {{ char }}
     </span>
   </p>
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted, computed, defineProps } from "vue";
+import { ref, onMounted, onUnmounted, computed } from "vue";
 
 const props = defineProps({
   text: {
     type: String,
     required: true,
   },
-  className: {
-    type: String,
-    default: "",
+  startTrigger: {
+    type: Number,
+    default: 0.5,
+  },
+  endTrigger: {
+    type: Number,
+    default: 0.6,
   },
 });
 
 const paragraphRef = ref(null);
 
-// Split text into words
-const words = computed(() => {
-  return props.text.split(" ");
+// Split text into characters
+const characters = computed(() => {
+  return props.text.split("");
 });
 
-// Create reactive array for word opacities
-const wordOpacities = ref(new Array(words.value.length).fill(0.2));
+// Create reactive array for character opacities
+const characterOpacities = ref(new Array(characters.value.length).fill(0.2));
 
 const updateOpacities = () => {
-  const totalWords = words.value.length;
   const paragraphRect = paragraphRef.value.getBoundingClientRect();
   const viewportHeight = window.innerHeight;
 
-  // Calculate progress based on element position relative to viewport center
-  const progress =
-    1 - (paragraphRect.top - viewportHeight / 3) / (viewportHeight / 3);
+  // Calculate line position relative to viewport (0 to 1)
+  const linePosition = 1 - paragraphRect.top / viewportHeight;
 
-  // Calculate how many words should be fully visible based on progress
-  const wordsToAnimate = Math.floor(progress * totalWords);
+  // Define trigger points (50% and 60% of viewport by default)
+  const startTrigger = props.startTrigger;
+  const endTrigger = props.endTrigger;
 
-  wordOpacities.value = words.value.map((_, index) => {
-    if (index <= wordsToAnimate) {
-      // Gradually increase opacity for current word
-      const wordProgress = progress * totalWords - index;
-      return Math.min(1, Math.max(0.2, wordProgress));
-    }
-    return 0.2;
+  // Calculate progress (0 to 1) within the animation zone
+  const progress = Math.max(
+    0,
+    Math.min(1, (linePosition - startTrigger) / (endTrigger - startTrigger)),
+  );
+
+  // Update each character's opacity
+  characters.value.forEach((_, charIndex) => {
+    // Calculate when this character should start animating (0 to 1)
+    const charTrigger = charIndex / characters.value.length;
+
+    // Calculate this character's opacity
+    const charProgress = Math.max(
+      0,
+      Math.min(1, (progress - charTrigger) * characters.value.length),
+    );
+
+    characterOpacities.value[charIndex] = 0.2 + charProgress * 0.8;
   });
 };
 
 onMounted(() => {
   window.addEventListener("scroll", updateOpacities);
+  updateOpacities();
 });
 
 onUnmounted(() => {

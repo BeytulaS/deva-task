@@ -1,3 +1,48 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  @font-face {
+    font-family: "NeueHaas";
+    src: url("@/assets/fonts/NeueHaasDisplayBold.ttf");
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "NeueHaas";
+    src: url("@/assets/fonts/NeueHaasDisplayMediu.ttf");
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "NeueHaas";
+    src: url("@/assets/fonts/NeueHaasDisplayLight.ttf");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "NeueHaas";
+    src: url("@/assets/fonts/NeueHaasDisplayRoman.ttf");
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "Seasons";
+    src: url("@/assets/fonts/Fontspring-DEMO-theseasons-bd.otf");
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "Seasons";
+    src: url("@/assets/fonts/Fontspring-DEMO-theseasons-reg.otf");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+}

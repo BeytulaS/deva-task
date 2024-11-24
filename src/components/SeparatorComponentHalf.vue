@@ -1,7 +1,7 @@
 <template>
-  <div :class="cn('w-full flex items-center opacity-50', className)">
-    <div class="w-full h-0.5 bg-slate-700"></div>
-    <div class="size-2 bg-slate-600 rotate-45"></div>
+  <div :class="cn('flex w-full items-center', className)">
+    <div class="z-30 h-[2px] w-full bg-[#424242]"></div>
+    <div class="z-30 size-2 rotate-45 bg-[#424242]"></div>
   </div>
 </template>
 

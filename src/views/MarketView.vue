@@ -8,7 +8,10 @@ import BenefitsSection from "@/components/industries/BenefitsSection.vue";
 import AgendaSection from "@/components/industries/AgendaSection.vue";
 
 const { market } = defineProps({
-  market: Object,
+  market: {
+    type: String,
+    required: true,
+  },
 });
 
 const marketsData = {
@@ -59,7 +62,7 @@ watch(
   () => market,
   (newMarket) => {
     currentMarket.value = marketsData[newMarket];
-  }
+  },
 );
 </script>
 
@@ -67,7 +70,8 @@ watch(
   <div class="">
     <HeroSection :market="currentMarket.hero" />
     <div
-      class="mx-auto mt-32 grid grid-cols-1 gap-32 md:grid-cols-5 px-8 md:px-12 2xl:px-24"
+      class="mx-auto grid grid-cols-1 gap-32 px-8 md:grid-cols-5 md:px-32"
+      :class="{ 'md:-mt-32': market === 'aerospace' }"
     >
       <CertificationsSection :market="currentMarket.certifications" />
       <AgendaSection />
